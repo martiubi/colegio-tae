@@ -37,7 +37,11 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             href="#inscripcion"
           >
-            <Button text={'Más información'} styles={'w-full'} />
+            <Button
+              text={'Más información'}
+              styles={'w-full'}
+              type={'button'}
+            />
           </motion.a>
           <motion.a
             initial={{ opacity: 0, y: 20 }}
@@ -47,7 +51,11 @@ const Hero = () => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Button text={'Formulario de preinscripción'} styles={'w-full'} />
+            <Button
+              text={'Formulario de preinscripción'}
+              styles={'w-full'}
+              type={'button'}
+            />
           </motion.a>
         </div>
       </div>

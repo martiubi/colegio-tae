@@ -86,6 +86,7 @@ const Inscripcion = () => {
             <Button
               text={'Formulario de preinscripción'}
               styles={'w-full mt-4'}
+              type={'button'}
             />
           </a>
         </motion.div>
