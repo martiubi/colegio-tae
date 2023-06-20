@@ -9,16 +9,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', (req, res) => {
-  res.send('Home Page');
-});
-
 app.post('/api/sendemail', (req, res) => {
   const { name, email, phone, message } = req.body;
 
   const transporter = nodemailer.createTransport({
-    host: 'smtp-relay.sendinblue.com',
-    port: 587,
+    host: process.env.HOST,
+    port: process.env.TRANSPORTER_PORT,
     auth: {
       user: process.env.USER_TRANSPORTER,
       pass: process.env.PASS_TRANSPORTER,
@@ -26,8 +22,8 @@ app.post('/api/sendemail', (req, res) => {
   });
 
   const mailOptions = {
-    from: 'martinaubilla@icloud.com',
-    to: 'martinaubilla295@gmail.com',
+    from: process.env.EMAIL_FROM,
+    to: process.env.EMAIL_TO,
     subject: 'Nueva Consulta TAE',
     text: `Nombre y apellido: ${name}\nEmail: ${email}\nTelefono: ${phone}\nConsulta: ${message}`,
   };
