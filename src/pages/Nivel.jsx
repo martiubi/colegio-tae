@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import 'swiper/css';
 import { Link } from 'react-router-dom';
+import { motion, useAnimation } from 'framer-motion';
 
 const Nivel = ({ data }) => {
   const { id, title, turno, icon, oferta, uniforme, images } = data;
@@ -64,17 +65,66 @@ const Nivel = ({ data }) => {
     };
   }, []);
 
+  //ANIMATIONS
+  const [isVisible, setIsVisible] = useState(false);
+  const [hasPlayedAnimation, setHasPlayedAnimation] = useState(false);
+  const controls = useAnimation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const section = document.getElementById('nivel');
+      if (section) {
+        const { top, bottom } = section.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (top < windowHeight * 0.7 && bottom > windowHeight * 0.7) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isVisible && !hasPlayedAnimation) {
+      controls.start({ opacity: 1, x: 0 });
+      setHasPlayedAnimation(true);
+    }
+  }, [isVisible, controls, hasPlayedAnimation]);
+
   return (
-    <div className="mt-5 px-10">
-      <h1 className="text-primary font-semibold text-3xl sm:text-4xl text-start">
+    <div id="nivel" className="mt-5 px-10">
+      <motion.h1
+        className="text-primary font-semibold text-3xl sm:text-4xl text-start"
+        initial={{ opacity: 0, y: -20 }}
+        animate={controls}
+        transition={{ duration: 0.3 }}
+      >
         Nivel <span className="text-secondary">{title}</span>
-      </h1>
-      <h2 className="text-primary font-semibold text-xl sm:text-2xl">
+      </motion.h1>
+      <motion.h2
+        className="text-primary font-semibold text-xl sm:text-2xl"
+        initial={{ opacity: 0, y: -20 }}
+        animate={controls}
+        transition={{ duration: 0.3, delay: 0.2 }}
+      >
         Turno <span>{turno}</span>
-      </h2>
+      </motion.h2>
 
       <div className="flex flex-col sm:flex-row-reverse justify-between mt-6 sm:mt-14">
-        <div className=" w-full sm:w-[50%]" ref={galleryRef}>
+        <motion.div
+          className=" w-full sm:w-[50%]"
+          ref={galleryRef}
+          initial={{ opacity: 0, scale: 1 }}
+          animate={controls}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           <Swiper
             modules={[Pagination]}
             pagination={true}
@@ -91,9 +141,14 @@ const Nivel = ({ data }) => {
               </SwiperSlide>
             ))}
           </Swiper>
-        </div>
+        </motion.div>
 
-        <div className="mt-5 sm:mt-0 w-full sm:w-[40%]">
+        <motion.div
+          className="mt-5 sm:mt-0 w-full sm:w-[40%]"
+          initial={{ opacity: 0, scale: 1 }}
+          animate={controls}
+          transition={{ duration: 0.6, delay: 0.7 }}
+        >
           <div>
             <h2 className="text-primary font-semibold text-xl sm:text-2xl">
               Oferta educativa
@@ -130,7 +185,7 @@ const Nivel = ({ data }) => {
               </Link>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
