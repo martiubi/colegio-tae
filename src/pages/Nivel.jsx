@@ -65,45 +65,12 @@ const Nivel = ({ data }) => {
     };
   }, []);
 
-  //ANIMATIONS
-  const [isVisible, setIsVisible] = useState(false);
-  const [hasPlayedAnimation, setHasPlayedAnimation] = useState(false);
-  const controls = useAnimation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const section = document.getElementById('nivel');
-      if (section) {
-        const { top, bottom } = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-
-        if (top < windowHeight * 0.7 && bottom > windowHeight * 0.7) {
-          setIsVisible(true);
-        } else {
-          setIsVisible(false);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isVisible && !hasPlayedAnimation) {
-      controls.start({ opacity: 1, x: 0 });
-      setHasPlayedAnimation(true);
-    }
-  }, [isVisible, controls, hasPlayedAnimation]);
-
   return (
     <div id="nivel" className="mt-5 px-10">
       <motion.h1
         className="text-primary font-semibold text-3xl sm:text-4xl text-start"
         initial={{ opacity: 0, y: -20 }}
-        animate={controls}
+        animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3 }}
       >
         Nivel <span className="text-secondary">{title}</span>
@@ -111,7 +78,7 @@ const Nivel = ({ data }) => {
       <motion.h2
         className="text-primary font-semibold text-xl sm:text-2xl"
         initial={{ opacity: 0, y: -20 }}
-        animate={controls}
+        animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.3, delay: 0.2 }}
       >
         Turno <span>{turno}</span>
@@ -122,7 +89,7 @@ const Nivel = ({ data }) => {
           className=" w-full sm:w-[50%]"
           ref={galleryRef}
           initial={{ opacity: 0, scale: 1 }}
-          animate={controls}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <Swiper
@@ -146,7 +113,7 @@ const Nivel = ({ data }) => {
         <motion.div
           className="mt-5 sm:mt-0 w-full sm:w-[40%]"
           initial={{ opacity: 0, scale: 1 }}
-          animate={controls}
+          animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
           <div>
