@@ -35,6 +35,8 @@ const Nivel = ({ data }) => {
 
       setSlides(initialSlides);
     }
+
+    window.scrollTo({ top: 0 });
   }, []);
 
   const [slides, setSlides] = useState(0);
@@ -84,7 +86,7 @@ const Nivel = ({ data }) => {
         Turno <span>{turno}</span>
       </motion.h2>
 
-      <div className="flex flex-col sm:flex-row-reverse justify-between mt-6 sm:mt-14">
+      <div className="flex flex-col sm:flex-row-reverse justify-between mt-6 sm:mt-10">
         <motion.div
           className=" w-full sm:w-[50%]"
           ref={galleryRef}
