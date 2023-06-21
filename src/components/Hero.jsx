@@ -1,9 +1,23 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { fondo } from '../assets';
 import Button from './Button';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
-const Hero = () => {
+const Hero = React.forwardRef((props, ref) => {
+  const navigate = useNavigate();
+  const handleNavigation = (sectionId) => {
+    return (event) => {
+      event.preventDefault();
+
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    };
+  };
   return (
     <section id="inicio" className=" ss:h-[82vh] overflow-hidden">
       <div className=" bg-black/50 ss:absolute ss:top-0 ss:z-[-2] ss:w-full ss:h-screen ss:object-cover ss:left-0 ss:scale-100 " />
@@ -35,12 +49,12 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            href="#inscripcion"
           >
             <Button
               text={'Más información'}
               styles={'w-full'}
               type={'button'}
+              onClick={handleNavigation('inscripcion')}
             />
           </motion.a>
           <motion.a
@@ -61,6 +75,6 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Hero;

@@ -3,7 +3,7 @@ import { niveles } from '../constants';
 import NivelButton from './NivelButton';
 import { motion, useAnimation } from 'framer-motion';
 
-const Niveles = () => {
+const Niveles = React.forwardRef((props, ref) => {
   const [currentPage, setCurrentPage] = useState(null);
   const handleButtonClick = (id) => {
     const selectedPage = niveles.find((nivel) => nivel.id === id);
@@ -43,7 +43,7 @@ const Niveles = () => {
   }, [isVisible, controls, hasPlayedAnimation]);
 
   return (
-    <section id="niveles" className="mt-14 px-10">
+    <section id="niveles" className="mt-14 px-10" ref={ref}>
       <motion.h1
         className="text-primary pt-10 md:mt-[6rem] font-semibold text-3xl sm:text-4xl text-center"
         initial={{ opacity: 0, y: -20 }}
@@ -70,6 +70,6 @@ const Niveles = () => {
       </motion.div>
     </section>
   );
-};
+});
 
 export default Niveles;

@@ -4,7 +4,7 @@ import Form from './Form';
 import { text } from '../assets';
 import { motion, useAnimation } from 'framer-motion';
 
-const Contacto = () => {
+const Contacto = React.forwardRef((props, ref) => {
   //ANIMATIONS
   const [isVisible, setIsVisible] = useState(false);
   const [hasPlayedAnimation, setHasPlayedAnimation] = useState(false);
@@ -38,7 +38,7 @@ const Contacto = () => {
     }
   }, [isVisible, controls, hasPlayedAnimation]);
   return (
-    <section id="contacto" className="mt-14 px-10">
+    <section id="contacto" className="mt-14 px-10" ref={ref}>
       <motion.h1
         className="text-primary pt-10 md:mt-[6rem] font-semibold text-3xl sm:text-4xl text-center"
         initial={{ opacity: 0, y: -20 }}
@@ -107,6 +107,6 @@ const Contacto = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Contacto;

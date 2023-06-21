@@ -5,7 +5,7 @@ import Accordion from './Accordion';
 import { requisitos } from '../constants';
 import { motion, useAnimation } from 'framer-motion';
 
-const Inscripcion = () => {
+const Inscripcion = React.forwardRef((props, ref) => {
   const [activeItem, setActiveItem] = useState(null);
 
   //ANIMATIONS
@@ -42,7 +42,7 @@ const Inscripcion = () => {
   }, [isVisible, controls, hasPlayedAnimation]);
 
   return (
-    <section id="inscripcion" className="mt-14 px-10">
+    <section id="inscripcion" className="mt-14 px-10" ref={ref}>
       <motion.h1
         className="text-primary pt-10 md:mt-[6rem] font-semibold text-3xl sm:text-4xl text-center"
         initial={{ opacity: 0, y: -20 }}
@@ -93,6 +93,6 @@ const Inscripcion = () => {
       </div>
     </section>
   );
-};
+});
 
 export default Inscripcion;

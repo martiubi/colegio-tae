@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Redes from './Redes';
 import { logo, close, menu, menuWhite } from '../assets';
 import { navLinks } from '../constants';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import NavigationContext from './NavigationContext';
 
 const Navbar = ({ layoutNiveles }) => {
   const [toggle, setToggle] = useState(false);
   const [white, setWhite] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
+  const { setTargetSection } = useContext(NavigationContext);
 
   useEffect(() => {
     const handleResize = () => {
@@ -54,18 +56,23 @@ const Navbar = ({ layoutNiveles }) => {
   const handleNavigation = (sectionId, onClick) => {
     return (event) => {
       event.preventDefault();
-      navigate(`/#${sectionId}`);
 
       if (onClick) {
         closeNavbar();
       }
+      if (location.pathname === '/') {
+        setTargetSection(sectionId);
+      } else {
+        setTargetSection(sectionId);
+        navigate('/'); // Redirect to the main page
 
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 100);
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
     };
   };
 
@@ -95,12 +102,7 @@ const Navbar = ({ layoutNiveles }) => {
               className="font-medium cursor-pointer text-[16px] text-primary flex flex-1 gap-4 mb-8 hover:text-secondary hover:scale-105 duration-300"
             >
               <img src={nav.icon} alt={nav.id} />
-              <a
-                href={`/#${nav.id}`}
-                onClick={handleNavigation(nav.id, closeNavbar)}
-              >
-                {nav.title}
-              </a>
+              <a onClick={handleNavigation(nav.id, closeNavbar)}>{nav.title}</a>
             </li>
           ))}
           <li>
@@ -119,9 +121,7 @@ const Navbar = ({ layoutNiveles }) => {
                 layoutNiveles ? 'text-primary' : 'text-white'
               } hover:text-secondary hover:scale-105 duration-300`}
             >
-              <a href={`/#${nav.id}`} onClick={handleNavigation(nav.id)}>
-                {nav.title}
-              </a>
+              <a onClick={handleNavigation(nav.id)}>{nav.title}</a>
             </li>
           ))}
           <li>

@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 import 'swiper/css';
 import { motion, useAnimation } from 'framer-motion';
 
-const Galeria = () => {
+const Galeria = React.forwardRef((props, ref) => {
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   const initialWidth = windowSize.current[0];
   let initialSlides;
@@ -79,7 +79,7 @@ const Galeria = () => {
   }, [isVisible, controls, hasPlayedAnimation]);
 
   return (
-    <section id="galeria" className="mt-14 px-10">
+    <section id="galeria" className="mt-14 px-10" ref={ref}>
       <div className="flex flex-col items-center text-primary">
         <motion.h1
           className=" mt-10 md:mt-[6rem] font-semibold text-3xl sm:text-4xl text-center"
@@ -131,6 +131,6 @@ const Galeria = () => {
       </motion.div>
     </section>
   );
-};
+});
 
 export default Galeria;

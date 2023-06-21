@@ -5,7 +5,7 @@ import Accordion from './Accordion';
 import { TypeAnimation } from 'react-type-animation';
 import { motion, useAnimation } from 'framer-motion';
 
-const Institucion = () => {
+const Institucion = React.forwardRef((props, ref) => {
   const [activeItem, setActiveItem] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const [hasPlayedAnimation, setHasPlayedAnimation] = useState(false);
@@ -40,7 +40,7 @@ const Institucion = () => {
   }, [isVisible, controls, hasPlayedAnimation]);
 
   return (
-    <section id="institucion" className="mt-[5rem] px-10">
+    <section id="institucion" className="mt-[5rem] px-10" ref={ref}>
       <div className="mt-0 border-t-2 border-secondary w-[60%] ml-auto mr-auto ss:border-none" />
       <motion.h1
         className="text-primary pt-10 sm:mt-0 font-semibold text-3xl sm:text-4xl text-center xl:mt-[100px]"
@@ -111,5 +111,5 @@ const Institucion = () => {
       </motion.div>
     </section>
   );
-};
+});
 export default Institucion;

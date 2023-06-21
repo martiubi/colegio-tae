@@ -3,14 +3,17 @@ import { Outlet } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ButtonToTop from '../components/ButtonToTop';
+import { NavigationProvider } from '../components/NavigationContext';
 
 const LayoutInicio = () => {
   return (
     <div>
-      <Navbar layoutNiveles={false} />
-      <Outlet />
-      <ButtonToTop />
-      <Footer />
+      <NavigationProvider>
+        <Navbar layoutNiveles={false} />
+        <Outlet />
+        <ButtonToTop />
+        <Footer />
+      </NavigationProvider>
     </div>
   );
 };
